@@ -453,61 +453,60 @@
                             <h2 class="card-title"><i class="fas fa-edit"></i> Quiz Notlarını Girin</h2>
                         </div>
                         
-                      <div class="input-grid">
-    <div class="input-group">
-        <label for="quizName"><i class="fas fa-tag"></i> Quiz Adı</label>
-        <input type="text" id="quizName" placeholder="Quiz adını girin">
-    </div>
-    
-    <div class="input-group">
-        <label for="supervisor"><i class="fas fa-user-tie"></i> Gözetmen</label>
-        <input type="text" id="supervisor" placeholder="Gözetmen adı">
-    </div>
-</div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="quizName"><i class="fas fa-tag"></i> Quiz Adı</label>
+                                <input type="text" id="quizName" placeholder="Quiz adını girin">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="supervisor"><i class="fas fa-user-tie"></i> Gözetmen</label>
+                                <input type="text" id="supervisor" placeholder="Gözetmen adı">
+                            </div>
+                        </div>
 
-<div class="input-grid">
-    <div class="input-group">
-        <label for="yazma"><i class="fas fa-pen"></i> Yazma Bölümü</label>
-        <input type="number" id="yazma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
-        <span class="weight">%70</span>
-    </div>
-    
-    <div class="input-group">
-        <label for="dinleme"><i class="fas fa-headphones"></i> Dinleme Bölümü</label>
-        <input type="number" id="dinleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
-        <span class="weight">%10</span>
-    </div>
-    
-    <div class="input-group">
-        <label for="konusma"><i class="fas fa-comments"></i> Konuşma Bölümü</label>
-        <input type="number" id="konusma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
-        <span class="weight">%10</span>
-    </div>
-    
-    <div class="input-group">
-        <label for="izleme"><i class="fas fa-eye"></i> İzleme Bölümü</label>
-        <input type="number" id="izleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
-        <span class="weight">%10</span>
-    </div>
-</div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="yazma"><i class="fas fa-pen"></i> Yazma Bölümü</label>
+                                <input type="number" id="yazma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+                                <span class="weight">%70</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="dinleme"><i class="fas fa-headphones"></i> Dinleme Bölümü</label>
+                                <input type="number" id="dinleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+                                <span class="weight">%10</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="konusma"><i class="fas fa-comments"></i> Konuşma Bölümü</label>
+                                <input type="number" id="konusma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+                                <span class="weight">%10</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="izleme"><i class="fas fa-eye"></i> İzleme Bölümü</label>
+                                <input type="number" id="izleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+                                <span class="weight">%10</span>
+                            </div>
+                        </div>
 
-<div class="input-grid">
-    <div class="input-group">
-        <label for="bonus"><i class="fas fa-star"></i> Bonus Puan</label>
-        <input type="number" id="bonus" min="0" max="10" placeholder="0-10">
-    </div>
-    
-    <div class="input-group">
-        <label for="studentName"><i class="fas fa-user"></i> Öğrenci Adı</label>
-        <input type="text" id="studentName" placeholder="Ad Soyad">
-    </div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="bonus"><i class="fas fa-star"></i> Bonus Puan</label>
+                                <input type="number" id="bonus" min="0" max="10" placeholder="0-10">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="studentName"><i class="fas fa-user"></i> Öğrenci Adı</label>
+                                <input type="text" id="studentName" placeholder="Ad Soyad">
+                            </div>
 
-    <div class="input-group">
-        <label for="previousScore"><i class="fas fa-chart-line"></i> Önceki Quiz Puanı</label>
-        <input type="number" id="previousScore" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
-    </div>
-</div>
-                      
+                            <div class="input-group">
+                                <label for="previousScore"><i class="fas fa-chart-line"></i> Önceki Quiz Puanı</label>
+                                <input type="number" id="previousScore" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+                            </div>
+                        </div>
 
                         <button class="btn btn-primary" onclick="calculateResults()" style="width: 100%">
                             <i class="fas fa-bolt"></i> SONUÇLARI HESAPLA
@@ -600,34 +599,37 @@
                             <h2 class="card-title"><i class="fas fa-award"></i> Başarı Sertifikası</h2>
                         </div>
                         
-                        <div class="certificate" id="certificate">
-                            <div class="certificate-content">
-                                <h2 id="certQuizName">MUCİZE QUIZ</h2>
-                                <h3>BAŞARI SERTİFİKASI</h3>
-                                <p>Bu sertifika</p>
-                                <div class="student-name" id="certName">Defne İLK</div>
-                                <p>adlı öğrenciye</p>
-                                <div style="font-size: 3em; margin: 20px 0;" id="certScore">85</div>
-                                <p>puan ile başarıyla tamamladığı için verilmiştir.</p>
-                                <div style="margin-top: 30px;">
-                                    <div style="display: inline-block; margin: 0 20px;">
-                                        <div style="border-bottom: 2px solid white; padding: 10px 30px;">
-                                            <span id="certSupervisor">Yılmaz Kutlu ONAY</span>
-                                        </div>
-                                        <div>Gözetmen</div>
-                                        <span id="certSupervisor2">Yılmaz Kutlu ONAY</span>
-                                        </div>
-                                        <div>Bölüm Başkanı</div>
-                                    </div>
-                                    <div style="display: inline-block; margin: 0 20px;">
-                                        <div style="border-bottom: 2px solid white; padding: 10px 30px;">
-                                            <span id="certDate">15.11.2023</span>
-                                        </div>
-                                        <div>Tarih</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       <div class="certificate" id="certificate">
+    <div class="certificate-content">
+        <h2 id="certQuizName">QUIZ SERTİFİKASI</h2>
+        <h3>BAŞARI SERTİFİKASI</h3>
+        <p>Bu sertifika</p>
+        <div class="student-name" id="certName">Öğrenci</div>
+        <p>adlı öğrenciye</p>
+        <div style="font-size: 3em; margin: 20px 0;" id="certScore">0</div>
+        <p>puan ile başarıyla tamamladığı için verilmiştir.</p>
+        <div style="margin-top: 30px;">
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                    <span id="certSupervisor">Gözetmen</span>
+                </div>
+                <div>Gözetmen</div>
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                    Yılmaz Kutlu ONAY
+                </div>
+                <div>Bölüm Başkanı</div>
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                    <span id="certDate">Tarih</span>
+                </div>
+                <div>Tarih</div>
+            </div>
+        </div>
+    </div>
+</div>
                         
                         <button class="btn btn-success" onclick="downloadCertificate()" style="width: 100%; margin-top: 15px;">
                             <i class="fas fa-download"></i> SERTİFİKA İNDİR
@@ -641,7 +643,10 @@
                         </div>
                         
                         <div id="rewardsContent">
-                            <!-- Ödüller buraya dinamik olarak eklenecek -->
+                            <div style="text-align: center; padding: 40px; color: #666;">
+                                <i class="fas fa-gift" style="font-size: 3em; margin-bottom: 20px; color: #ddd;"></i>
+                                <p>Sonuçlar hesaplandıktan sonra burada görünecek</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -727,7 +732,7 @@
 
         // Main calculation function
         function calculateResults() {
-            // Değerleri al
+            // Değerleri al (boşsa 0 olarak al)
             const yazma = parseFloat(document.getElementById('yazma').value) || 0;
             const dinleme = parseFloat(document.getElementById('dinleme').value) || 0;
             const konusma = parseFloat(document.getElementById('konusma').value) || 0;
@@ -826,7 +831,7 @@
         function displayRewards(score, improvement) {
             let rewardsHTML = '';
             
-               if (score = 100) {
+            if (score === 100) {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--success);" class="pulse">🏆</div>
@@ -835,8 +840,7 @@
                         <p><strong>🎴 Joker:</strong> 5 Ücretsiz Joker</p>
                     </div>
                 `;
-            
-            if (score >= 90) {
+            } else if (score >= 90) {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--success);" class="pulse">🏆</div>
@@ -871,7 +875,7 @@
                         <p><strong>🎴 Joker:</strong> 1 Ücretsiz Joker</p>
                     </div>
                 `;
-            } else if (score > 40) {
+            } else if (score >= 40) {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--danger);">🔥</div>
@@ -880,7 +884,7 @@
                         <p><strong>‼️ Ceza:</strong> Kişi başı 1 Kahve</p>
                     </div>
                 `;
-                  } else {
+            } else {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--danger);">🔥</div>
@@ -894,18 +898,18 @@
             document.getElementById('rewardsContent').innerHTML = rewardsHTML;
         }
 
-        function updateCertificate(score, name, quizName, supervisor) {
-            document.getElementById('certName').textContent = name;
-            document.getElementById('certScore').textContent = score;
-            document.getElementById('certQuizName').textContent = quizName.toUpperCase();
-            document.getElementById('certSupervisor').textContent = supervisor;
-            
-            // Tarihi güncelle
-            const now = new Date();
-            const dateString = now.toLocaleDateString('tr-TR');
-            document.getElementById('certDate').textContent = dateString;
-        }
-
+       function updateCertificate(score, name, quizName, supervisor) {
+    document.getElementById('certName').textContent = name;
+    document.getElementById('certScore').textContent = score;
+    document.getElementById('certQuizName').textContent = quizName.toUpperCase();
+    document.getElementById('certSupervisor').textContent = supervisor;
+    
+    // Bölüm Başkanı sabit - Yılmaz Kutlu ONAY
+    // Tarihi güncelle
+    const now = new Date();
+    const dateString = now.toLocaleDateString('tr-TR');
+    document.getElementById('certDate').textContent = dateString;
+}
         function downloadCertificate() {
             const certificate = document.getElementById('certificate');
             
@@ -923,9 +927,10 @@
             });
         }
 
-        // Sayfa yüklendiğinde otomatik hesapla
+        // Sayfa yüklendiğinde otomatik hesaplamayı kaldır
         window.onload = function() {
-            calculateResults();
+            // Boş form ile başla, otomatik hesaplama yok
+            document.getElementById('resultsCard').style.display = 'none';
         }
     </script>
 </body>
