@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraculous Academy - Premium Quiz Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff3860;
+            --secondary: #714cdf;
+            --accent: #00d1b2;
+            --dark: #1a1a2e;
+            --light: #f7f7f7;
+            --success: #23d160;
+            --warning: #ffdd57;
+            --danger: #ff3860;
+            --gradient: linear-gradient(135deg, #ff3860, #714cdf, #00d1b2);
+            --miraculous-red: #ff3860;
+            --miraculous-purple: #714cdf;
+            --miraculous-black: #1a1a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--miraculous-black) 0%, var(--miraculous-purple) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--miraculous-black);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--miraculous-red);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 2.5em;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-tab.active {
+            background: var(--miraculous-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 56, 96, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Input Section */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--miraculous-red);
+            box-shadow: 0 0 0 3px rgba(255, 56, 96, 0.1);
+        }
+
+        .input-group .weight {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            background: var(--light);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 56, 96, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 56, 96, 0.6);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .score-main {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 0% 85%, var(--light) 85% 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .score-value {
+            position: relative;
+            font-size: 3em;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Progress Bars */
+        .progress-section {
+            margin: 20px 0;
+        }
+
+        .progress-item {
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Certificate Styles */
+        .certificate {
+            background: linear-gradient(135deg, var(--miraculous-red) 0%, var(--miraculous-purple) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.05)"><polygon points="50,0 100,50 50,100 0,50"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        .certificate-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .certificate h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .certificate h3 {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .certificate .student-name {
+            font-size: 2em;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid var(--miraculous-red);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Improvement Styles */
+        .improvement {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .improvement.positive {
+            background: #e8f5e8;
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .improvement.negative {
+            background: #ffeaea;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        .improvement.neutral {
+            background: #fffae0;
+            color: var(--warning);
+            border: 2px solid var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-hat-wizard"></i>
+                <div>
+                    <h1>Miraculous Academy</h1>
+                    <p>Premium Quiz Değerlendirme Portalı</p>
+                </div>
+            </div>
+            
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('calculation')"><i class="fas fa-calculator"></i> Hesaplama</button>
+                <button class="nav-tab" onclick="showTab('announcements')"><i class="fas fa-bullhorn"></i> Duyurular</button>
+                <button class="nav-tab" onclick="showTab('history')"><i class="fas fa-history"></i> Eski Quizler</button>
+                <button class="nav-tab" onclick="showTab('contract')"><i class="fas fa-file-contract"></i> Sözleşme</button>
+            </div>
+        </div>
+
+        <!-- Calculation Tab -->
+        <div id="calculationTab" class="tab-content">
+            <div class="main-content">
+                <!-- Left Column -->
+                <div>
+                    <!-- Input Card -->
+                    <div class="card fade-in">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-edit"></i> Quiz Notlarını Girin</h2>
+                        </div>
+                        
+                       <div class="input-grid">
+    <div class="input-group">
+        <label for="quizName"><i class="fas fa-tag"></i> Quiz Adı</label>
+        <input type="text" id="quizName" placeholder="Quiz adını girin">
+    </div>
+    
+    <div class="input-group">
+        <label for="supervisor"><i class="fas fa-user-tie"></i> Gözetmen</label>
+        <input type="text" id="supervisor" placeholder="Gözetmen adı">
+    </div>
+</div>
+
+<div class="input-grid">
+    <div class="input-group">
+        <label for="yazma"><i class="fas fa-pen"></i> Yazma Bölümü</label>
+        <input type="number" id="yazma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+        <span class="weight">%70</span>
+    </div>
+    
+    <div class="input-group">
+        <label for="dinleme"><i class="fas fa-headphones"></i> Dinleme Bölümü</label>
+        <input type="number" id="dinleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+        <span class="weight">%10</span>
+    </div>
+    
+    <div class="input-group">
+        <label for="konusma"><i class="fas fa-comments"></i> Konuşma Bölümü</label>
+        <input type="number" id="konusma" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+        <span class="weight">%10</span>
+    </div>
+    
+    <div class="input-group">
+        <label for="izleme"><i class="fas fa-eye"></i> İzleme Bölümü</label>
+        <input type="number" id="izleme" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+        <span class="weight">%10</span>
+    </div>
+</div>
+
+<div class="input-grid">
+    <div class="input-group">
+        <label for="bonus"><i class="fas fa-star"></i> Bonus Puan</label>
+        <input type="number" id="bonus" min="0" max="10" placeholder="0-10">
+    </div>
+    
+    <div class="input-group">
+        <label for="studentName"><i class="fas fa-user"></i> Öğrenci Adı</label>
+        <input type="text" id="studentName" placeholder="Ad Soyad">
+    </div>
+
+    <div class="input-group">
+        <label for="previousScore"><i class="fas fa-chart-line"></i> Önceki Quiz Puanı</label>
+        <input type="number" id="previousScore" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
+    </div>
+</div>
+
+                        <button class="btn btn-primary" onclick="calculateResults()" style="width: 100%">
+                            <i class="fas fa-bolt"></i> SONUÇLARI HESAPLA
+                        </button>
+                    </div>
+
+                    <!-- Results Card -->
+                    <div class="card fade-in" id="resultsCard" style="display: none;">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-chart-bar"></i> Detaylı Analiz</h2>
+                        </div>
+                        
+                        <div class="results-grid">
+                            <div class="score-main">
+                                <div class="score-circle">
+                                    <div class="score-value" id="finalScore">0</div>
+                                </div>
+                                <h3>Toplam Puan</h3>
+                                <p id="scoreGrade">Mükemmel!</p>
+                                <div id="improvementSection"></div>
+                            </div>
+                            
+                            <div class="progress-section">
+                                <h4>Bölüm Performansı</h4>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Yazma</span>
+                                        <span id="progressYazma">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="fillYazma" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Dinleme</span>
+                                        <span id="progressDinleme">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="fillDinleme" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Konuşma</span>
+                                        <span id="progressKonusma">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="fillKonusma" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>İzleme</span>
+                                        <span id="progressIzleme">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="fillIzleme" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value" id="statAverage">0</div>
+                                <div>Ortalama</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="statJokers">0</div>
+                                <div>Joker</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="statBonus">0</div>
+                                <div>Bonus</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="statImprovement">+0</div>
+                                <div>Gelişim</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <!-- Certificate Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-award"></i> Başarı Sertifikası</h2>
+                        </div>
+                        
+                 <div class="certificate-content">
+    <h2 id="certQuizName">QUIZ SERTİFİKASI</h2>
+    <h3>BAŞARI SERTİFİKASI</h3>
+    <p>Bu sertifika</p>
+    <div class="student-name" id="certName">Öğrenci</div>
+    <p>adlı öğrenciye</p>
+    <div style="font-size: 3em; margin: 20px 0;" id="certScore">0</div>
+    <p>puan ile başarıyla tamamladığı için verilmiştir.</p>
+    <div style="margin-top: 30px;">
+        <div style="display: inline-block; margin: 0 20px;">
+            <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                <span id="certSupervisor">Bölüm Başkanı</span>
+            </div>
+            <div>Bölüm Başkanı</div>
+        </div>
+        <div style="display: inline-block; margin: 0 20px;">
+            <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                <span id="certDate">Tarih</span>
+            </div>
+            <div>Tarih</div>
+        </div>
+    </div>
+</div>
+                        <button class="btn btn-success" onclick="downloadCertificate()" style="width: 100%; margin-top: 15px;">
+                            <i class="fas fa-download"></i> SERTİFİKA İNDİR
+                        </button>
+                    </div>
+
+                    <!-- Rewards Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-gift"></i> Ödüller & Jokerler</h2>
+                        </div>
+                        
+                        <div id="rewardsContent">
+                            <!-- Ödüller buraya dinamik olarak eklenecek -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Tabs (Placeholder) -->
+        <div id="announcementsTab" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-bullhorn"></i> Duyurular</h2>
+                </div>
+                <div style="padding: 40px; text-align: center; color: #666;">
+                    <i class="fas fa-bullhorn" style="font-size: 3em; margin-bottom: 20px; color: #ddd;"></i>
+                    <h3>Duyurular Sayfası</h3>
+                    <p>Bu sayfa yakında aktif olacaktır.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="historyTab" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-history"></i> Eski Quizler</h2>
+                </div>
+                <div style="padding: 40px; text-align: center; color: #666;">
+                    <i class="fas fa-history" style="font-size: 3em; margin-bottom: 20px; color: #ddd;"></i>
+                    <h3>Quiz Geçmişi Sayfası</h3>
+                    <p>Bu sayfa yakında aktif olacaktır.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="contractTab" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-file-contract"></i> Sözleşme</h2>
+                </div>
+                <div style="padding: 40px; text-align: center; color: #666;">
+                    <i class="fas fa-file-contract" style="font-size: 3em; margin-bottom: 20px; color: #ddd;"></i>
+                    <h3>Sözleşme Sayfası</h3>
+                    <p>Bu sayfa yakında aktif olacaktır.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab and set active
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        // Score validation
+        function validateScore(input) {
+            let value = parseFloat(input.value);
+            if (value > 100) {
+                input.value = 100;
+                showNotification('Puan 100\'den fazla olamaz!', 'warning');
+            }
+            if (value < 0) {
+                input.value = 0;
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Basit bir notification sistemi - geliştirilebilir
+            alert(message);
+        }
+
+        // Main calculation function
+        function calculateResults() {
+            // Değerleri al
+            const yazma = parseFloat(document.getElementById('yazma').value) || 0;
+            const dinleme = parseFloat(document.getElementById('dinleme').value) || 0;
+            const konusma = parseFloat(document.getElementById('konusma').value) || 0;
+            const izleme = parseFloat(document.getElementById('izleme').value) || 0;
+            const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+            const studentName = document.getElementById('studentName').value || "Öğrenci";
+            const previousScore = parseFloat(document.getElementById('previousScore').value) || 0;
+            const quizName = document.getElementById('quizName').value || "Quiz";
+            const supervisor = document.getElementById('supervisor').value || "Gözetmen";
+
+// Main calculation function
+function calculateResults() {
+    // Değerleri al (boşsa 0 olarak al)
+    const yazma = parseFloat(document.getElementById('yazma').value) || 0;
+    const dinleme = parseFloat(document.getElementById('dinleme').value) || 0;
+    const konusma = parseFloat(document.getElementById('konusma').value) || 0;
+    const izleme = parseFloat(document.getElementById('izleme').value) || 0;
+    const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+    const studentName = document.getElementById('studentName').value || "Öğrenci";
+    const previousScore = parseFloat(document.getElementById('previousScore').value) || 0;
+    const quizName = document.getElementById('quizName').value || "Quiz";
+    const supervisor = document.getElementById('supervisor').value || "Gözetmen";
+
+    // Hesaplamalar
+    const weightedScore = (yazma * 0.70) + (dinleme * 0.10) + (konusma * 0.10) + (izleme * 0.10);
+    const totalScore = Math.min(weightedScore + bonus, 100);
+    
+    // Buçuklu puanları yuvarla
+    const roundedScore = Math.round(totalScore * 2) / 2;
+
+    // Sonuçları göster
+    displayResults(roundedScore, yazma, dinleme, konusma, izleme, studentName, previousScore, bonus);
+    updateCertificate(roundedScore, studentName, quizName, supervisor);
+}
+
+// Sayfa yüklendiğinde otomatik hesaplamayı kaldır
+window.onload = function() {
+    // Boş form ile başla, otomatik hesaplama yok
+    document.getElementById('resultsCard').style.display = 'none';
+}
+
+        function displayResults(totalScore, yazma, dinleme, konusma, izleme, studentName, previousScore, bonus) {
+            // Skorları güncelle
+            document.getElementById('finalScore').textContent = totalScore;
+            
+            // Progress barları güncelle
+            updateProgressBar('Yazma', yazma);
+            updateProgressBar('Dinleme', dinleme);
+            updateProgressBar('Konusma', konusma);
+            updateProgressBar('Izleme', izleme);
+
+            // İstatistikleri güncelle
+            const average = (yazma + dinleme + konusma + izleme) / 4;
+            document.getElementById('statAverage').textContent = Math.round(average);
+            document.getElementById('statBonus').textContent = bonus;
+            
+            // Joker hesapla
+            let jokers = 0;
+            if (totalScore >= 80) jokers = 2;
+            else if (totalScore >= 70) jokers = 1;
+            document.getElementById('statJokers').textContent = jokers;
+
+            // Gelişim hesapla
+            const improvement = totalScore - previousScore;
+            document.getElementById('statImprovement').textContent = (improvement >= 0 ? '+' : '') + improvement.toFixed(1);
+            document.getElementById('statImprovement').style.color = improvement >= 0 ? 'var(--success)' : 'var(--danger)';
+
+            // Gelişim bölümünü göster
+            showImprovement(improvement, previousScore);
+
+            // Ödülleri göster
+            displayRewards(totalScore, improvement);
+
+            // Sonuç kartını göster
+            document.getElementById('resultsCard').style.display = 'block';
+        }
+
+        function updateProgressBar(section, value) {
+            document.getElementById('progress' + section).textContent = value + '%';
+            document.getElementById('fill' + section).style.width = value + '%';
+        }
+
+        function showImprovement(improvement, previousScore) {
+            let improvementHTML = '';
+            let improvementClass = 'neutral';
+            
+            if (improvement > 0) {
+                improvementClass = 'positive';
+                improvementHTML = `
+                    <div class="improvement ${improvementClass}">
+                        <i class="fas fa-arrow-up"></i> 
+                        Önceki puana göre <strong>+${improvement.toFixed(1)}</strong> puanlık gelişme!
+                    </div>
+                `;
+            } else if (improvement < 0) {
+                improvementClass = 'negative';
+                improvementHTML = `
+                    <div class="improvement ${improvementClass}">
+                        <i class="fas fa-arrow-down"></i> 
+                        Önceki puana göre <strong>${improvement.toFixed(1)}</strong> puan düşüş.
+                    </div>
+                `;
+            } else {
+                improvementHTML = `
+                    <div class="improvement ${improvementClass}">
+                        <i class="fas fa-equals"></i> 
+                        Önceki puanla aynı seviyedesin.
+                    </div>
+                `;
+            }
+            
+            document.getElementById('improvementSection').innerHTML = improvementHTML;
+        }
+
+        function displayRewards(score, improvement) {
+            let rewardsHTML = '';
+            
+            if (score >= 90) {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--success);" class="pulse">🏆</div>
+                        <h3 style="color: var(--success);">MÜKEMMEL BAŞARI!</h3>
+                        <p><strong>🎁 Ödül:</strong> 1 Öğün Yemek</p>
+                        <p><strong>🎴 Joker:</strong> 3 Ücretsiz Joker</p>
+                        <p><strong>⭐ Bonus:</strong> Süper Kahraman Rozeti</p>
+                    </div>
+                `;
+            } else if (score >= 80) {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--success);">🎉</div>
+                        <h3 style="color: var(--success);">BÜYÜK BAŞARI!</h3>
+                        <p><strong>🎁 Ödül:</strong> Kahve + Tatlı</p>
+                        <p><strong>🎴 Joker:</strong> 2 Ücretsiz Joker</p>
+                        <p><strong>⭐ Bonus:</strong> Özel Miraculous Kartı</p>
+                    </div>
+                `;
+            } else if (score >= 70) {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--warning);">⭐</div>
+                        <h3 style="color: var(--warning);">İYİ BAŞARI!</h3>
+                        <p><strong>🎁 Ödül:</strong> 1 Kahve</p>
+                        <p><strong>🎴 Joker:</strong> 1 Ücretsiz Joker</p>
+                    </div>
+                `;
+            } else if (score >= 60) {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--warning);">💪</div>
+                        <h3 style="color: var(--warning);">ORTA SEVİYE</h3>
+                        <p><strong>🎴 Joker:</strong> 1 Ücretsiz Joker</p>
+                        <p><strong>📈 Hedef:</strong> 70+ Puan'a Ulaş</p>
+                    </div>
+                `;
+            } else {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--danger);">🔥</div>
+                        <h3 style="color: var(--danger);">ÇALIŞMA ZAMANI!</h3>
+                        <p><strong>📚 Tavsiye:</strong> Ek çalışma seansları</p>
+                        <p><strong>🎯 Hedef:</strong> 60+ Puan'a Ulaş</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('rewardsContent').innerHTML = rewardsHTML;
+        }
+
+        function updateCertificate(score, name, quizName, supervisor) {
+            document.getElementById('certName').textContent = name;
+            document.getElementById('certScore').textContent = score;
+            document.getElementById('certQuizName').textContent = quizName.toUpperCase();
+            document.getElementById('certSupervisor').textContent = supervisor;
+            
+            // Tarihi güncelle
+            const now = new Date();
+            const dateString = now.toLocaleDateString('tr-TR');
+            document.getElementById('certDate').textContent = dateString;
+        }
+
+        function downloadCertificate() {
+            const certificate = document.getElementById('certificate');
+            
+            html2canvas(certificate, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const studentName = document.getElementById('studentName').value || 'Öğrenci';
+                link.download = `Sertifika-${studentName}-${new Date().getTime()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // Sayfa yüklendiğinde otomatik hesapla
+        window.onload = function() {
+            calculateResults();
+        }
+    </script>
+</body>
+</html>
