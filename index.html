@@ -453,7 +453,7 @@
                             <h2 class="card-title"><i class="fas fa-edit"></i> Quiz Notlarını Girin</h2>
                         </div>
                         
-                       <div class="input-grid">
+                      <div class="input-grid">
     <div class="input-group">
         <label for="quizName"><i class="fas fa-tag"></i> Quiz Adı</label>
         <input type="text" id="quizName" placeholder="Quiz adını girin">
@@ -507,6 +507,7 @@
         <input type="number" id="previousScore" min="0" max="100" placeholder="0-100" oninput="validateScore(this)">
     </div>
 </div>
+                      
 
                         <button class="btn btn-primary" onclick="calculateResults()" style="width: 100%">
                             <i class="fas fa-bolt"></i> SONUÇLARI HESAPLA
@@ -599,29 +600,35 @@
                             <h2 class="card-title"><i class="fas fa-award"></i> Başarı Sertifikası</h2>
                         </div>
                         
-                 <div class="certificate-content">
-    <h2 id="certQuizName">QUIZ SERTİFİKASI</h2>
-    <h3>BAŞARI SERTİFİKASI</h3>
-    <p>Bu sertifika</p>
-    <div class="student-name" id="certName">Öğrenci</div>
-    <p>adlı öğrenciye</p>
-    <div style="font-size: 3em; margin: 20px 0;" id="certScore">0</div>
-    <p>puan ile başarıyla tamamladığı için verilmiştir.</p>
-    <div style="margin-top: 30px;">
-        <div style="display: inline-block; margin: 0 20px;">
-            <div style="border-bottom: 2px solid white; padding: 10px 30px;">
-                <span id="certSupervisor">Bölüm Başkanı</span>
-            </div>
-            <div>Bölüm Başkanı</div>
-        </div>
-        <div style="display: inline-block; margin: 0 20px;">
-            <div style="border-bottom: 2px solid white; padding: 10px 30px;">
-                <span id="certDate">Tarih</span>
-            </div>
-            <div>Tarih</div>
-        </div>
-    </div>
-</div>
+                        <div class="certificate" id="certificate">
+                            <div class="certificate-content">
+                                <h2 id="certQuizName">MUCİZE QUIZ</h2>
+                                <h3>BAŞARI SERTİFİKASI</h3>
+                                <p>Bu sertifika</p>
+                                <div class="student-name" id="certName">Defne İLK</div>
+                                <p>adlı öğrenciye</p>
+                                <div style="font-size: 3em; margin: 20px 0;" id="certScore">85</div>
+                                <p>puan ile başarıyla tamamladığı için verilmiştir.</p>
+                                <div style="margin-top: 30px;">
+                                    <div style="display: inline-block; margin: 0 20px;">
+                                        <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                                            <span id="certSupervisor">Yılmaz Kutlu ONAY</span>
+                                        </div>
+                                        <div>Gözetmen</div>
+                                        <span id="certSupervisor2">Yılmaz Kutlu ONAY</span>
+                                        </div>
+                                        <div>Bölüm Başkanı</div>
+                                    </div>
+                                    <div style="display: inline-block; margin: 0 20px;">
+                                        <div style="border-bottom: 2px solid white; padding: 10px 30px;">
+                                            <span id="certDate">15.11.2023</span>
+                                        </div>
+                                        <div>Tarih</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <button class="btn btn-success" onclick="downloadCertificate()" style="width: 100%; margin-top: 15px;">
                             <i class="fas fa-download"></i> SERTİFİKA İNDİR
                         </button>
@@ -731,36 +738,17 @@
             const quizName = document.getElementById('quizName').value || "Quiz";
             const supervisor = document.getElementById('supervisor').value || "Gözetmen";
 
-// Main calculation function
-function calculateResults() {
-    // Değerleri al (boşsa 0 olarak al)
-    const yazma = parseFloat(document.getElementById('yazma').value) || 0;
-    const dinleme = parseFloat(document.getElementById('dinleme').value) || 0;
-    const konusma = parseFloat(document.getElementById('konusma').value) || 0;
-    const izleme = parseFloat(document.getElementById('izleme').value) || 0;
-    const bonus = parseFloat(document.getElementById('bonus').value) || 0;
-    const studentName = document.getElementById('studentName').value || "Öğrenci";
-    const previousScore = parseFloat(document.getElementById('previousScore').value) || 0;
-    const quizName = document.getElementById('quizName').value || "Quiz";
-    const supervisor = document.getElementById('supervisor').value || "Gözetmen";
+            // Hesaplamalar
+            const weightedScore = (yazma * 0.70) + (dinleme * 0.10) + (konusma * 0.10) + (izleme * 0.10);
+            const totalScore = Math.min(weightedScore + bonus, 100);
+            
+            // Buçuklu puanları yuvarla
+            const roundedScore = Math.round(totalScore * 2) / 2;
 
-    // Hesaplamalar
-    const weightedScore = (yazma * 0.70) + (dinleme * 0.10) + (konusma * 0.10) + (izleme * 0.10);
-    const totalScore = Math.min(weightedScore + bonus, 100);
-    
-    // Buçuklu puanları yuvarla
-    const roundedScore = Math.round(totalScore * 2) / 2;
-
-    // Sonuçları göster
-    displayResults(roundedScore, yazma, dinleme, konusma, izleme, studentName, previousScore, bonus);
-    updateCertificate(roundedScore, studentName, quizName, supervisor);
-}
-
-// Sayfa yüklendiğinde otomatik hesaplamayı kaldır
-window.onload = function() {
-    // Boş form ile başla, otomatik hesaplama yok
-    document.getElementById('resultsCard').style.display = 'none';
-}
+            // Sonuçları göster
+            displayResults(roundedScore, yazma, dinleme, konusma, izleme, studentName, previousScore, bonus);
+            updateCertificate(roundedScore, studentName, quizName, supervisor);
+        }
 
         function displayResults(totalScore, yazma, dinleme, konusma, izleme, studentName, previousScore, bonus) {
             // Skorları güncelle
@@ -838,14 +826,23 @@ window.onload = function() {
         function displayRewards(score, improvement) {
             let rewardsHTML = '';
             
+               if (score = 100) {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--success);" class="pulse">🏆</div>
+                        <h3 style="color: var(--success);">TAM PUAN!</h3>
+                        <p><strong>🎁 Ödül:</strong> 1 Öğün Yemek!</p>
+                        <p><strong>🎴 Joker:</strong> 5 Ücretsiz Joker</p>
+                    </div>
+                `;
+            
             if (score >= 90) {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--success);" class="pulse">🏆</div>
-                        <h3 style="color: var(--success);">MÜKEMMEL BAŞARI!</h3>
-                        <p><strong>🎁 Ödül:</strong> 1 Öğün Yemek</p>
+                        <h3 style="color: var(--success);">TEBRİKLER!</h3>
+                        <p><strong>🎁 Ödül:</strong> Kahve + Tatlı</p>
                         <p><strong>🎴 Joker:</strong> 3 Ücretsiz Joker</p>
-                        <p><strong>⭐ Bonus:</strong> Süper Kahraman Rozeti</p>
                     </div>
                 `;
             } else if (score >= 80) {
@@ -855,7 +852,6 @@ window.onload = function() {
                         <h3 style="color: var(--success);">BÜYÜK BAŞARI!</h3>
                         <p><strong>🎁 Ödül:</strong> Kahve + Tatlı</p>
                         <p><strong>🎴 Joker:</strong> 2 Ücretsiz Joker</p>
-                        <p><strong>⭐ Bonus:</strong> Özel Miraculous Kartı</p>
                     </div>
                 `;
             } else if (score >= 70) {
@@ -873,16 +869,24 @@ window.onload = function() {
                         <div style="font-size: 3em; color: var(--warning);">💪</div>
                         <h3 style="color: var(--warning);">ORTA SEVİYE</h3>
                         <p><strong>🎴 Joker:</strong> 1 Ücretsiz Joker</p>
-                        <p><strong>📈 Hedef:</strong> 70+ Puan'a Ulaş</p>
                     </div>
                 `;
-            } else {
+            } else if (score > 40) {
                 rewardsHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 3em; color: var(--danger);">🔥</div>
                         <h3 style="color: var(--danger);">ÇALIŞMA ZAMANI!</h3>
-                        <p><strong>📚 Tavsiye:</strong> Ek çalışma seansları</p>
-                        <p><strong>🎯 Hedef:</strong> 60+ Puan'a Ulaş</p>
+                        <p><strong>📚 Tavsiye:</strong> Sonrakine daha düzgün çalış.</p>
+                        <p><strong>‼️ Ceza:</strong> Kişi başı 1 Kahve</p>
+                    </div>
+                `;
+                  } else {
+                rewardsHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3em; color: var(--danger);">🔥</div>
+                        <h3 style="color: var(--danger);">YENİLGİ!</h3>
+                        <p><strong>📚 Tavsiye:</strong> Sonrakine daha düzgün çalış.</p>
+                        <p><strong>‼️ Ceza:</strong> 1 Tatlı + Kişi başı 1 kahve</p>
                     </div>
                 `;
             }
